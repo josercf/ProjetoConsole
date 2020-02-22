@@ -1,0 +1,102 @@
+
+    // insert
+        public Cadastro(string nome, string email, string senha){
+            SqlConnection con = new SqlConnection("Data Source=DESKTOP-QPB3I0U;Initial Catalog=TesteForm;Integrated Security=True");
+            con.Open();
+            SqlCommand cmd = new SqlCommand("insert into Formulario values('" + nome + "', '" + email + "', '" + senha + "')", con);
+            int i = cmd.ExecuteNonQuery();
+            if (i > 0)
+            {
+                Console.WriteLine("Sucesso");
+            }
+            else{
+                System.Console.WriteLine("Erro");
+            }
+            con.Close();
+
+        }
+/*******************************************************************************************************************/
+        public Mostrar(string email){
+            // Select
+            SqlConnection con = null;
+            SqlDataReader reader = null;
+
+            try
+            {
+                con = new SqlConnection("Data Source=DESKTOP-QPB3I0U;Initial Catalog=TesteForm;Integrated Security=True");
+                con.Open();
+
+                // Criando o SqlCommand com parâmetro
+                SqlCommand cmd = new SqlCommand(
+                    "select * from formulario where email = @email", con);
+
+                // Define as informações do parâmetro criado
+                SqlParameter param = new SqlParameter();
+                param.ParameterName = "@email";
+                param.Value = email;
+
+                // Inserindo o parâmetro no comando
+                cmd.Parameters.Add(param);
+
+                // Executando o commando e obtendo o resultado
+                reader = cmd.ExecuteReader();
+
+                // Exibindo os registros
+                while (reader.Read())
+                {
+                    Console.WriteLine("{0}, {1}, {2}",
+                        reader["Nome"],
+                        reader["Email"],
+                        reader["Senha"]);
+                }
+            }
+            finally
+            {
+                // Fecha o datareader
+                if (reader != null)
+                {
+                    reader.Close();
+                }
+
+                // Fecha a conexão
+                if (con != null)
+                {
+                    con.Close();
+                }
+            }
+
+        }
+    }
+/*******************************************************************************************************************/
+        public Deletar(string email, string senha){
+            SqlConnection con = new SqlConnection("Data Source=DESKTOP-QPB3I0U;Initial Catalog=TesteForm;Integrated Security=True");
+            con.Open();
+            // Delete
+            SqlCommand cmd = new SqlCommand("delete from formulario where email = '"+email+"' and senha = '"+senha+"'", con);
+            if(email != "" && senha != ""){
+            cmd.ExecuteReader();
+
+                Console.WriteLine("Sucesso");
+            }
+            else{
+                System.Console.WriteLine("Erro");
+            }
+            con.Close();
+        }
+
+/*******************************************************************************************************************/
+        public Editar(string _email, string nome, string email, string senha){
+            SqlConnection con = new SqlConnection("Data Source=DESKTOP-QPB3I0U;Initial Catalog=TesteForm;Integrated Security=True");
+            con.Open();
+            // Update
+            SqlCommand cmd = new SqlCommand("update formulario set nome = '"+nome+"', email = '"+email+"', senha = '"+senha+"' where email = '"+_email+"'", con);
+            if(nome != "" && email != "" && senha != ""){
+            cmd.ExecuteReader();
+
+                Console.WriteLine("Alterado com Sucesso");
+            }
+            else{
+                System.Console.WriteLine("Erro");
+            }
+            con.Close();
+        }
