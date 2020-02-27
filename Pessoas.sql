@@ -7,7 +7,7 @@
 		id_pessoas integer identity(1,1) constraint PK_id_pessoas primary key,
 		nome varchar(255) not null,
 		email varchar(40),
-		senha varchar(30)
+		senha varchar(30)	
 	)
 	end
 	go
