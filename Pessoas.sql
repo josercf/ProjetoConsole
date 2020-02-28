@@ -17,6 +17,6 @@
 -- reseta o id no sql
 -- DBCC CHECKIDENT('Pessoa', RESEED, 0)
 
--- select * from Pessoa
+-- select nome, email from Pessoa
 
 -- drop table Pessoa

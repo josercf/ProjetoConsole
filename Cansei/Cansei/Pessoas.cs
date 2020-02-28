@@ -28,7 +28,48 @@ namespace Cansei{
             }
             conexao.Desconctar();
         }
+
         // SELECT
+        public void Admin(){
+            SqlDataReader reader = null;
+
+            try
+            {
+                cmd.Connection = conexao.Conectar();
+
+                // Criando o SqlCommand com parâmetro
+                cmd.CommandText = "select * from Pessoa";
+
+
+                reader = cmd.ExecuteReader();
+
+                // Exibindo os registros
+                while (reader.Read())
+                {
+                    Console.WriteLine("{0}, {1}, {2}",
+                        reader["Nome"],
+                        reader["Email"],
+                        reader["Senha"]);
+                        //mensagens.Verificado();
+                }
+            }
+            finally
+            {
+                // Fecha o datareader
+                if (reader != null)
+                {
+                    reader.Close();
+                }
+
+                // Fecha a conexão
+                if (conexao != null)
+                {
+                    conexao.Desconctar();
+                }
+            }
+        }
+
+        // SELECT email senha
         public void Mostrar(string email, string senha){
             SqlDataReader reader = null;
 
@@ -43,10 +84,6 @@ namespace Cansei{
                 if(email != "" && senha != ""){
                     reader = cmd.ExecuteReader();
                 }
-                else
-                {
-                    mensagens.Erro();
-                }
 
                 // Exibindo os registros
                 while (reader.Read())
@@ -55,6 +92,7 @@ namespace Cansei{
                         reader["Nome"],
                         reader["Email"],
                         reader["Senha"]);
+                        mensagens.Verificado();
                 }
             }
             finally
@@ -68,7 +106,6 @@ namespace Cansei{
                 // Fecha a conexão
                 if (conexao != null)
                 {
-                    mensagens.Erro();
                     conexao.Desconctar();
                 }
             }
