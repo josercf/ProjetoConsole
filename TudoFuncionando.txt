@@ -1,6 +1,3 @@
-//Alterado por mim, José Romualdo
-//Alteração 2
-
 
     // insert
         public Cadastro(string nome, string email, string senha){
